@@ -22,7 +22,7 @@ function App() {
   const loadQuotations = async () => {
     setLoading(true);
     try {
-      const res = await fetch('https://canary-enterprise-quotation.onrender.com/api/quotations');
+      const res = await fetch('https://canary-enterprise.onrender.com/api/quotations');
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       const data = await res.json();
       setQuotations(Array.isArray(data) ? data : []);
@@ -98,13 +98,13 @@ function App() {
     try {
       let response;
       if (editingId) {
-        response = await fetch(`https://canary-enterprise-quotation.onrender.com/api/quotations/${editingId}`, {
+        response = await fetch(`https://canary-enterprise.onrender.com/api/quotations/${editingId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
       } else {
-        response = await fetch('https://canary-enterprise-quotation.onrender.com/api/quotations/', {
+        response = await fetch('https://canary-enterprise.onrender.com/api/quotations/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -148,7 +148,7 @@ function App() {
   const handleDelete = async (id, quotationNumber) => {
     if (!window.confirm(`Delete Quotation ${quotationNumber}?`)) return;
     try {
-      const response = await fetch(`https://canary-enterprise-quotation.onrender.com/api/quotations/${id}`, { method: 'DELETE' });
+      const response = await fetch(`https://canary-enterprise.onrender.com/api/quotations/${id}`, { method: 'DELETE' });
       if (response.ok) {
         alert('🗑️ Deleted successfully!');
         loadQuotations();
