@@ -22,7 +22,7 @@ function App() {
   const loadQuotations = async () => {
     setLoading(true);
     try {
-      const res = await fetch('https://canary-enterprise-quotation.onrender.com/api/quotations');
+      const res = await fetch('https://canary-enterprise.onrender.com/api/quotations');
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       const data = await res.json();
       setQuotations(Array.isArray(data) ? data : []);
@@ -37,7 +37,7 @@ function App() {
 
   const [formData, setFormData] = useState({
     quotationDate: '',
-    billTo: { name: '', address: '', city: '' },
+    billTo: { name: '', address: '', city: '', mobile: '' },
     items: [{ description: '', price: '', quantity: '' }]
   });
 
@@ -98,13 +98,13 @@ function App() {
     try {
       let response;
       if (editingId) {
-        response = await fetch(`https://canary-enterprise-quotation.onrender.com/api/quotations/${editingId}`, {
+        response = await fetch(`https://canary-enterprise.onrender.com/api/quotations/${editingId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
       } else {
-        response = await fetch('https://canary-enterprise-quotation.onrender.com/api/quotations/', {
+        response = await fetch('https://canary-enterprise.onrender.com/api/quotations', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -116,7 +116,7 @@ function App() {
         alert(editingId ? '✅ Quotation updated!' : '✅ Quotation saved!');
         setFormData({
           quotationDate: '',
-          billTo: { name: '', address: '', city: '' },
+          billTo: { name: '', address: '', city: '', mobile: '' },
           items: [{ description: '', price: '', quantity: '' }]
         });
         setEditingId(null);
@@ -148,7 +148,7 @@ function App() {
   const handleDelete = async (id, quotationNumber) => {
     if (!window.confirm(`Delete Quotation ${quotationNumber}?`)) return;
     try {
-      const response = await fetch(`https://canary-enterprise-quotation.onrender.com/api/quotations/${id}`, { method: 'DELETE' });
+      const response = await fetch(`https://canary-enterprise.onrender.com/api/quotations/${id}`, { method: 'DELETE' });
       if (response.ok) {
         alert('🗑️ Deleted successfully!');
         loadQuotations();
@@ -280,6 +280,14 @@ function App() {
                     value={formData.billTo.city}
                     onChange={handleInputChange}
                     placeholder="City"
+                    className="form-input"
+                  />
+                  <input
+                    type="text"
+                    name="billTo.mobile"
+                    value={formData.billTo.mobile}
+                    onChange={handleInputChange}
+                    placeholder="Mobile Number"
                     className="form-input"
                   />
                 </div>
@@ -420,7 +428,7 @@ function App() {
                             </span>
                           </td>
                           <td>{q.billTo.name}</td>
-                          <td>+91 1234567890</td>
+                          <td>{q.billTo.mobile}</td>
                           <td>
                             <div style={{ display: 'flex', gap: '5px' }}>
                               <span className="brand-tag">

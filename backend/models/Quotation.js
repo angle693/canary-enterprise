@@ -7,14 +7,17 @@ const itemSchema = new mongoose.Schema({
   quantity: { type: Number, required: true }
 });
 
+const billToSchema = new mongoose.Schema({
+  name: String,
+  address: String,
+  city: String,
+  mobile: String,
+});
+
 const quotationSchema = new mongoose.Schema({
   quotationNumber: { type: String, required: true, unique: true }, // e.g., CE0016-21-22
   quotationDate: { type: Date, required: true },
-  billTo: {
-    name: String,
-    address: String,
-    city: String
-  },
+  billTo: billToSchema,
   items: [itemSchema],
   subtotal: { type: Number, required: true },
   cgstPercent: { type: Number, default: 9 },

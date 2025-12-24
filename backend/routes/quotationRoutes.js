@@ -18,6 +18,7 @@ const getNextSequence = async (name) => {
 router.post('/', async (req, res) => {
   try {
     const { quotationDate, billTo, items, subtotal, cgstAmount, grandTotal } = req.body;
+    console.log('Incoming billTo:', billTo);
     if (!quotationDate || !items || !Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ message: 'Missing required fields' });
     }
@@ -42,7 +43,12 @@ router.post('/', async (req, res) => {
     const newQuotation = new Quotation({
       quotationNumber,
       quotationDate,
-      billTo,
+      billTo: {
+        name: billTo?.name || '',
+        address: billTo?.address || '',
+        city: billTo?.city || '',
+        mobile: billTo?.mobile || ''
+      },
       items,
       subtotal,
       cgstAmount,
@@ -73,10 +79,16 @@ router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { quotationDate, billTo, items, subtotal, cgstAmount, grandTotal } = req.body;
+    console.log('Update billTo:', billTo);
 
     const updated = await Quotation.findByIdAndUpdate(id, {
       quotationDate,
-      billTo,
+      billTo: {
+        name: billTo?.name || '',
+        address: billTo?.address || '',
+        city: billTo?.city || '',
+        mobile: billTo?.mobile || ''
+      },
       items,
       subtotal,
       cgstAmount,
