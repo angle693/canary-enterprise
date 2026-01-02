@@ -230,9 +230,12 @@ const QuotationPDFView = ({ quotation }) => {
       }}>
         {/* Left: Terms & Conditions */}
         <div className="pdf-footer-left" style={{ width: '50%', paddingRight: '10px' }}>
-          <div style={{ fontWeight: 'bold' }}>Terms & Conditions</div>
-          <div>Please Include the Invoice Number in your Payment Notes</div>
-          <div style={{ fontWeight: 'bold', marginTop: '10px' }}>THANK YOU</div>
+          <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>Terms and Conditions</div>
+          <div style={{ marginBottom: '2px' }}>E & O.E</div>
+          <div style={{ marginBottom: '2px' }}>1. Goods once sold will not be taken back.</div>
+          <div style={{ marginBottom: '2px' }}>2. Interest @ 18% p.a. will be charged if the payment for SRB infotech is not made within the stipulated time.</div>
+          <div style={{ marginBottom: '2px' }}>3. Subject to ‘Delhi’ Jurisdiction only.</div>
+          <div style={{ fontWeight: 'bold', marginTop: '50px' }}>THANK YOU</div>
           <div>FOR YOUR BUSINESS</div>
         </div>
 
@@ -268,6 +271,7 @@ const QuotationPDFView = ({ quotation }) => {
         </div>
       </div>
     </div>
+
   );
 };
 
